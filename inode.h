@@ -11,6 +11,13 @@
 #define INODE_PTR_COUNT 16
 #define MAX_SYS_OPEN_FILES 64
 
+// offsets
+#define OWNER_ID_OFFSET 4
+#define PERMISSIONS_OFFSET 6
+#define FLAGS_OFFSET 7
+#define LINK_COUNT_OFFSET 8
+#define BLOCK_POINTER_OFFSET 9
+
 
 struct inode {
     unsigned int size;
@@ -24,8 +31,8 @@ struct inode {
     unsigned int inode_num;
 };
 
-int block_num = inode_num / INODES_PER_BLOCK + INODE_FIRST_BLOCK;
-int block_offset_bytes = block_offset * INODE_SIZE;
+// int block_num = inode_num / INODES_PER_BLOCK + INODE_FIRST_BLOCK;
+// int block_offset_bytes = block_offset * INODE_SIZE;
 struct inode *find_incore_free(void);
 struct inode *find_incore(unsinged int inode_num);
 void read_inode(struct inode *in, int inode_num);
