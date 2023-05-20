@@ -27,7 +27,9 @@ struct inode {
 int block_num = inode_num / INODES_PER_BLOCK + INODE_FIRST_BLOCK;
 int block_offset_bytes = block_offset * INODE_SIZE;
 struct inode *find_incore_free(void);
-struct inode *find_incore(void);
+struct inode *find_incore(unsinged int inode_num);
+void read_inode(struct inode *in, int inode_num);
+void write_inode(struct inode *in);
 int flags = read_u8(block + block_offset_bytes + 7);
 
 int ialloc(void);

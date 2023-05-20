@@ -36,6 +36,14 @@ struct inode *find_incore(unsigned int inode_num){
 	return NULL;
 }
 
+void read_inode(struct inode *in, int inode_num){
+
+}
+
+void write_inode(struct inode *in){
+	
+}
+
 // allocate blocks from theri respective free maps
 int ialloc(void){
 	unsigned char block[BLOCK_SIZE] = {0};
