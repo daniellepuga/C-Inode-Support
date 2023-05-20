@@ -1,8 +1,40 @@
 #include "block.h"
 #include "free.h"
 #include "inode.h"
+#include "pack.h"
+#include <string.h>
+#include <stdio.h>
 
 static struct inode incore[MAX_SYS_OPEN_FILES] = {0};
+
+// find the first free in-core inode within the incore array
+struct inode *find_incore_free(void){
+	for (int i = 0; i < MAX_SYS_OPEN_FILES; i++) {
+		// check if reference is 0
+		struct inode *temp_incore = &incore[i];
+
+		if (temp_incore->ref_count == 0) {
+			return temp_incore;
+		}
+	}
+	return NULL;
+}
+
+// find an incore inode record in the incore array
+// by the inode number
+struct inode *find_incore(unsigned int inode_num){
+	for (int i = 0; i < MAX_SYS_OPEN_FILES; i++) {
+		// check if reference is 0
+		struct inode *temp_incore = &incore[i];
+
+		if(temp_incore->inode_num == inode_num){
+			if(temp_incore->ref_count != 0){
+				return temp_incore;
+			}
+		}
+	}
+	return NULL;
+}
 
 // allocate blocks from theri respective free maps
 int ialloc(void){
