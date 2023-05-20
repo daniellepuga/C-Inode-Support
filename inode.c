@@ -2,6 +2,7 @@
 #include "free.h"
 #include "inode.h"
 
+static struct inode incore[MAX_SYS_OPEN_FILES] = {0};
 
 // allocate blocks from theri respective free maps
 int ialloc(void){
@@ -12,8 +13,8 @@ int ialloc(void){
 	int num = find_free(block);
 
     // if there are no free inodes
-	if (num == -1) {
-		return -1;
+	if (num == FAILED) {
+		return FAILED;
 	} else {
         // mark it as non free
 		set_free(block, num, 0);
